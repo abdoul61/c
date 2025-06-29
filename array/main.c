@@ -9,13 +9,10 @@ struct Card{
 };
 
 int main(){
-    int A[] = {2,3,4,5,59};
-    struct Card c = {1,2,'c'};
-    int *p = A;
-    printf("size of %lu\n",sizeof(A));
-    printf("size of %lu\n",sizeof(c));
-    printf("Value of p %p\n",p);
-    printf("Value of p %p\n",A);
+    struct Card * p = (struct Card *)malloc(sizeof(struct Card));
+    p->face = 10;
+    p->num = 20;
+    p->x = 'a';
 
     return 0;
 }
