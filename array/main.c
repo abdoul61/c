@@ -9,31 +9,56 @@ struct Array{
     int length; 
 };
 
+// Display a list of elements in Array
 int display(struct Array * arr){
     printf("Length of the array is %d\n",arr->length);
     for(int i = 0; i < arr->length; i++){
         printf("%d ",arr->A[i]);
     }
 }
+// Append an element x.
 void append(struct Array * arr,int x){
     if(arr->length < arr->size){
         arr->A[arr->length] = x;
         arr->length++;
+    }else{
+        exit(EXIT_FAILURE);
     }
 }
+// Insert element x in a position index 
 void insert(struct Array *arr, int index, int x){
-    arr->length++;
-    int i;
-    for(i = arr->length; i > index; i--){
-        arr->A[i] = arr->A[i-1];
+    if (arr->length < arr->size){
+        arr->length++;
+        int i;
+        for(i = arr->length; i > index; i--){
+            arr->A[i] = arr->A[i-1];
+        }
+        arr->A[index] = x;
+    }else{
+       exit(EXIT_FAILURE);
     }
-    arr->A[index] = x;
+}
+
+// delete an element with an index  from array
+int delete(struct Array * arr,int index){
+    int el = arr->A[index];
+    int i;
+    if(index < arr->length){
+        for(i = index; i < arr->length-1; i++) {
+            if(i+1 < arr->length){
+                arr->A[i] = arr->A[i+1];
+            }
+        }
+    }
+    arr->length--;
+    return el;
 }
 
 int main(){
     struct Array * arr;
     arr = (struct Array *)malloc(sizeof(struct Array));
-    int n, i;
+    int n, i,q;
+    
     printf("Enter a size: \n");
     scanf("%d",&arr->size);
     printf("The size of arr is %d\n",arr->size);
@@ -53,6 +78,10 @@ int main(){
     display(arr);
     printf("The number of element in A is %d\n",arr->length);
     insert(arr,3,30);
+    display(arr);
+    printf("delete an element.\n");
+    q = delete(arr,2);
+    printf("Element deleted %d\n",q);
     display(arr);
     free(arr->A);
     free(arr);
