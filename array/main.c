@@ -70,7 +70,25 @@ int search(struct Array * arr,int x){
             return i;
         }
     }
-    printf("Element is not present");
+    printf("Element is not present\n");
+    return -1;
+}
+int Bsearch(struct Array * arr,int x){
+    int i = 0;
+    int k = arr->length-1;
+    int mid;
+    while(i <= k){
+        mid = i +  (k - i) / 2;
+        if(arr->A[mid] == x){
+            printf("Found!\n");
+            return mid;
+        }else if(x < arr->A[mid]){
+            k = mid -1;
+        }else{
+            i = mid + 1;
+        }
+    }
+    printf("Not found!\n");
     return -1;
 }
 
@@ -96,6 +114,7 @@ int main(){
     display(arr);
     append(arr,10);
     display(arr);
+    printf("Element is found at %d\n",Bsearch(arr,10));
     printf("Searching element\n");
     search(arr,30);
     printf("The number of element in A is %d\n",arr->length);
