@@ -73,6 +73,12 @@ int search(struct Array * arr,int x){
     printf("Element is not present\n");
     return -1;
 }
+void reversed(struct Array *arr){
+    int i, j;
+    for(i = 0, j = arr->length-1; i < j; i++,j--){
+        swap(&arr->A[i], &arr->A[j]);
+    }
+}
 int Bsearch(struct Array * arr,int x){
     int i = 0;
     int k = arr->length-1;
@@ -127,6 +133,8 @@ int main(){
     printf("Searching element\n");
     printf("Element is found at %d\n",search(arr,30));
     printf("Element is found at %d\n",search(arr,30));
+    display(arr);
+    reversed(arr);
     display(arr);
     free(arr->A);
     free(arr);
