@@ -19,8 +19,6 @@ struct Array * union(struct Array *arr1, struct Array * arr2){
     struct Array * result;
     result = (struct Array *)malloc(sizeof(struct Array));
 
-    for(i)
-
 }
 int main(){
     return 0;
