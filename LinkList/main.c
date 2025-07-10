@@ -84,11 +84,10 @@ struct Node * create(struct Array * arr){
 
 void Rdisplay(struct Node * head){
     if (head == NULL){
-        exit(EXIT_FAILURE);
+        return;
     }
     printf("%d -> ", head->data);
     Rdisplay(head->next);
-    printf("\n");
 }
 
 int countLinkList(struct Node *p){
@@ -123,6 +122,9 @@ int main(){
     printf("Array has %d elements\n",r->length);
     printf("Array can hava up to %d elements \n",r->size);
     Rdisplay(p);
+    printf("\n");
+    pLength = countLinkList(p);
+    printf("The length of the linklist is %d\n",pLength);
 
 
     // Free heap memory
