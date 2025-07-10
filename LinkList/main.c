@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <limits.h>
 
 
 struct Node{
@@ -124,11 +125,41 @@ int LinkListSumRec(struct Node * head){
     }
     return LinkListSumRec(head->next) + head->data;
 }
+
+int findMax(struct Node * head){
+    int maxi = INT_MIN;
+    struct Node * p;
+    p = head;
+    while(p != NULL){
+        if(p->data >= maxi){
+            maxi = p->data;
+        }
+        p = p->next;
+    }
+
+    return maxi;
+}
+
+int findMaxRec(struct Node * head){
+    int result ;
+    struct Node * p;
+    p = head;
+    if(p == NULL){
+        return INT_MIN;
+    }
+    result = findMaxRec(p->next);
+    if(result > p->data){
+        return result;
+    }else{
+        return p->data;
+    }
+}
+    
 int main(){
     // Structure the array
     struct Array * r;
     r = (struct Array *)malloc(sizeof(struct Array));
-    int n,pLength,total;
+    int n,pLength,total,maxi;
     printf("How many element do you need ?\n");
     scanf("%d",&n);
     r->size = n;
@@ -151,6 +182,8 @@ int main(){
     printf("The length of the linklist is %d\n",pLength);
     total = LinkListSumRec(p);
     printf("The total sum of nodes is: %d \n",total);
+    maxi = findMaxRec(p);
+    printf("The maximum elements in a node is: %d\n", maxi);
 
 
     // Free heap memory
