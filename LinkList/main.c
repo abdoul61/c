@@ -100,11 +100,35 @@ int countLinkList(struct Node *p){
     return count;
 }
 
+int countLinkRec(struct Node * head){
+    if(head == NULL){
+        return 0;
+    }
+    return countLinkRec(head->next) + 1;
+}
+
+
+int LinkListSum(struct Node * p){
+    unsigned int value = 0;
+    while (p != NULL){
+        value += p->data;
+        p = p->next;
+    }
+    return value;
+}
+
+
+int LinkListSumRec(struct Node * head){
+    if(head == NULL){
+        return 0;
+    }
+    return LinkListSumRec(head->next) + head->data;
+}
 int main(){
     // Structure the array
     struct Array * r;
     r = (struct Array *)malloc(sizeof(struct Array));
-    int n,pLength;
+    int n,pLength,total;
     printf("How many element do you need ?\n");
     scanf("%d",&n);
     r->size = n;
@@ -123,8 +147,10 @@ int main(){
     printf("Array can hava up to %d elements \n",r->size);
     Rdisplay(p);
     printf("\n");
-    pLength = countLinkList(p);
+    pLength = countLinkRec(p);
     printf("The length of the linklist is %d\n",pLength);
+    total = LinkListSumRec(p);
+    printf("The total sum of nodes is: %d \n",total);
 
 
     // Free heap memory
