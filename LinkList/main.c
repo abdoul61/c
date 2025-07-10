@@ -82,12 +82,30 @@ struct Node * create(struct Array * arr){
     return head;
 }
 
+void Rdisplay(struct Node * head){
+    if (head == NULL){
+        exit(EXIT_FAILURE);
+    }
+    printf("%d -> ", head->data);
+    Rdisplay(head->next);
+    printf("\n");
+}
+
+int countLinkList(struct Node *p){
+    int count = 0; 
+    while (p != NULL){
+        count++;
+        p = p->next;
+    }
+    
+    return count;
+}
 
 int main(){
     // Structure the array
     struct Array * r;
     r = (struct Array *)malloc(sizeof(struct Array));
-    int n;
+    int n,pLength;
     printf("How many element do you need ?\n");
     scanf("%d",&n);
     r->size = n;
@@ -104,6 +122,7 @@ int main(){
     Display(p);
     printf("Array has %d elements\n",r->length);
     printf("Array can hava up to %d elements \n",r->size);
+    Rdisplay(p);
 
 
     // Free heap memory
