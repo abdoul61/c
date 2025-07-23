@@ -154,12 +154,36 @@ int findMaxRec(struct Node * head){
         return p->data;
     }
 }
-    
+
+// Search in a LinkList
+int searchElement(struct Node * head, int b){
+    int resut ;
+    struct Node * p;
+    p = head;
+    while(p != NULL){
+        if(p->data == b){
+            return 0;
+        }
+        p = p->next;
+    }
+    return 1;
+}
+
+int searchRec(struct Node * p, int b){
+    if(p == NULL){
+        return -1;
+    }
+    if(p->data == b){
+        return 0;
+    }
+    return searchRec(p->next,b);
+}
 int main(){
     // Structure the array
     struct Array * r;
     r = (struct Array *)malloc(sizeof(struct Array));
     int n,pLength,total,maxi;
+    int toFind = -1;
     printf("How many element do you need ?\n");
     scanf("%d",&n);
     r->size = n;
@@ -184,6 +208,12 @@ int main(){
     printf("The total sum of nodes is: %d \n",total);
     maxi = findMaxRec(p);
     printf("The maximum elements in a node is: %d\n", maxi);
+
+    printf("Find element");
+
+    toFind = searchRec(p,29);
+    printf("The element was found %d\n",toFind);
+
 
 
     // Free heap memory
