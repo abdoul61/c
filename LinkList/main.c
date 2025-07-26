@@ -13,6 +13,11 @@ struct Array{
     int length;
     int size;
 };
+struct LinkResult{
+    int count;
+    int data; 
+    struct Node * head;
+};
 
 void Display(struct Node *p){
     while(p != NULL){
@@ -50,6 +55,7 @@ void freeList(struct Node *head){
         head = head->next;
         free(temp);
     }
+    temp = NULL;
 }
 
 struct Node * create(struct Array * arr){
@@ -156,17 +162,27 @@ int findMaxRec(struct Node * head){
 }
 
 // Search in a LinkList
-int searchElement(struct Node * head, int b){
-    int resut ;
-    struct Node * p;
-    p = head;
-    while(p != NULL){
-        if(p->data == b){
-            return 0;
-        }
-        p = p->next;
+struct Node * searchElement(struct Node * head, int b){
+    if(head == NULL) return NULL;
+    struct Node * curr = head->next;
+    struct Node * previous = head;
+    if(head->data == b){
+        printf("Element found at first Position \n");
+        return head;
     }
-    return 1;
+    while(curr != NULL){
+        if(curr->data == b){
+            printf("Element Found! \n");
+            previous->next = curr->next;
+            curr->next = head;
+            return curr;
+        }
+        previous = curr;
+        curr = curr->next;
+    }
+
+    printf("NotFound!\n");
+    return head;
 }
 
 int searchRec(struct Node * p, int b){
@@ -183,7 +199,7 @@ int main(){
     struct Array * r;
     r = (struct Array *)malloc(sizeof(struct Array));
     int n,pLength,total,maxi;
-    int toFind = -1;
+
     printf("How many element do you need ?\n");
     scanf("%d",&n);
     r->size = n;
@@ -208,15 +224,14 @@ int main(){
     printf("The total sum of nodes is: %d \n",total);
     maxi = findMaxRec(p);
     printf("The maximum elements in a node is: %d\n", maxi);
+    printf("Find element\n");
+    
+    Display(p);
+    p = searchElement(p,29);
+    Display(p);
+    printf("\n");
+    p = searchElement(p,29);
 
-    printf("Find element");
-
-    toFind = searchRec(p,29);
-    printf("The element was found %d\n",toFind);
-
-
-
-    // Free heap memory
     freeList(p);
     free(r->A);
     free(r);
