@@ -216,6 +216,31 @@ struct Node * insertNode(struct Node * head,int key,int idx){
     return head;
 }
 
+struct Node * insertSortedList(struct Node * head, int key){
+    struct Node * p = (struct Node *)malloc(sizeof(struct Node));
+    p->data = key;
+    p->next = NULL;
+    if(head == NULL) return p;
+    if(head->next == NULL){
+        if(head->data < key){
+            head->next = p;
+        }else{
+            p->next = head;
+            head = p;
+        }
+        return head;
+    }
+    struct Node *temp = head->next;
+    struct Node * pre = head;
+    while( temp != NULL && temp->data < key){
+        pre = temp;
+        temp = temp->next;
+    }
+    pre->next = p;
+    p->next = temp;
+    return head;
+}
+
 int searchRec(struct Node * p, int b){
     if(p == NULL){
         return -1;
@@ -259,12 +284,8 @@ int main(){
     printf("Find element\n");
     
     Display(p);
-    p = searchElement(p,29);
-    Display(p);
-    p = insertNode(p,55,0);
-    Display(p);
     printf("\n");
-    p = searchElement(p,29);
+    p = insertSortedList(p,6);
 
     Display(p);
 
