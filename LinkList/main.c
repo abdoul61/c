@@ -185,6 +185,37 @@ struct Node * searchElement(struct Node * head, int b){
     return head;
 }
 
+
+struct Node * insertNode(struct Node * head,int key,int idx){
+    struct Node * h = (struct Node *)malloc(sizeof(struct Node));
+    h->data = key;
+    h->next = NULL;
+    if(head == NULL) return h;
+
+    if(head->next == NULL){
+        head->next = h;
+        return head;
+    }
+    if(idx == 0){
+        h->next = head;
+        head = h;
+        return head;
+    }
+
+    struct Node * p = head->next;
+    struct Node * previous = head;
+    int count = 0;
+    while(p != NULL && count < idx){
+        previous = p;
+        p = p->next;
+        count++;
+    }
+    
+    previous->next = h;
+    h->next = p;
+    return head;
+}
+
 int searchRec(struct Node * p, int b){
     if(p == NULL){
         return -1;
@@ -194,6 +225,7 @@ int searchRec(struct Node * p, int b){
     }
     return searchRec(p->next,b);
 }
+
 int main(){
     // Structure the array
     struct Array * r;
@@ -229,8 +261,12 @@ int main(){
     Display(p);
     p = searchElement(p,29);
     Display(p);
+    p = insertNode(p,55,0);
+    Display(p);
     printf("\n");
     p = searchElement(p,29);
+
+    Display(p);
 
     freeList(p);
     free(r->A);
