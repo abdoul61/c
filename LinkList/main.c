@@ -250,7 +250,21 @@ int searchRec(struct Node * p, int b){
     }
     return searchRec(p->next,b);
 }
-
+// reverse LinkList
+struct Node * reverseLinkList(struct Node * head){
+    if(head == NULL || head->next == NULL) return head;
+    struct Node * p, * prev, * curr;
+    p = head;
+    prev = curr = NULL;
+    while(p != NULL){
+        curr = prev;
+        prev = p;
+        p = p->next;
+        prev->next = curr;
+    }
+    head = prev;
+    return head;
+}
 int main(){
     // Structure the array
     struct Array * r;
@@ -288,6 +302,9 @@ int main(){
     p = insertSortedList(p,6);
 
     Display(p);
+    p = reverseLinkList(p);
+    Display(p);
+
 
     freeList(p);
     free(r->A);
