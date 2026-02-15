@@ -35,7 +35,9 @@ void Display(struct Matrix *m){
         printf("\n");
     }
 }
+
 int main(){
+    printf("Hello world");
     struct Matrix *m;
     m = (struct Matrix *)malloc(sizeof(struct Matrix));
     m->n = 5;
