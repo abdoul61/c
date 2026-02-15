@@ -1,3 +1,4 @@
+// Testing if this can get track in github
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
@@ -24,6 +25,7 @@ void display(char *arr,int n){
         printf("%d ",arr[i]);
     }
 }
+
 bool isAnagram(char s[],char t[]){
     size_t slen = sizeof(s) / sizeof(s[0])-1;
     size_t tlen = sizeof(t) / sizeof(t[0])-1;
