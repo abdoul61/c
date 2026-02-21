@@ -6,8 +6,8 @@
 void handle_dividedByZero(int signum);
 int main(){
     int results = 0;
-    int v1 = 0;
-    int v2 = 0;
+    volatile int v1 = 121;
+    volatile int v2 = 0;
     void (* sigHandlerReturn)(int);
     sigHandlerReturn  = signal(SIGFPE,handle_dividedByZero);
 
@@ -15,8 +15,7 @@ int main(){
         perror("Signal Error:");
         return 1;
     }
-    v1 = 121;
-    v2 = 0;
+
     results = (v1 / v2);
     printf("Result of Divide by zero is %d\n", results);
     return 0;
