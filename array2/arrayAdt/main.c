@@ -36,9 +36,28 @@ void Insert(struct Array * arr, int idx, int x){
     arr->A[i] = x;
     arr->length++;
 }
+int Delete(struct Array * arr, int idx){
+    int i;
+    int result;
+    if( idx < 0 || idx > arr->length){
+        printf("Error maximum length already reach");
+        exit(EXIT_FAILURE);
+    }
+    result = arr->A[idx];
+    for(i = idx; i < arr->length -1 ; i++){
+        if(i+1 < arr->length){
+            arr->A[i] = arr->A[i+1];
+        }
+    }
+    arr->A[i] = 0;
+    arr->length--;
+    
+    return result;
+}
 
 int main(){
     struct Array arr;
+    int deleted;
     printf("Enter the size of the array\n");
     scanf("%d",&arr.size);
     arr.A = (int * )malloc(arr.size*sizeof(int));
@@ -54,7 +73,9 @@ int main(){
     Insert(&arr,5,10);
 
     display(arr);
-
+    deleted = Delete(&arr,2);
+    printf("Element deleted was %d",deleted);
+    display(arr);
     free(arr.A);
     return 0;
 }
