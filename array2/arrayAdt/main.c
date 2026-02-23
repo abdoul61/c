@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
+
 
 struct Array{
     int *A; 
@@ -54,7 +56,57 @@ int Delete(struct Array * arr, int idx){
     
     return result;
 }
+void swapp(int * add_1, int * add_2){
+    int temp = *add_1;
+    *add_1 = *add_2;
+    *add_2 = temp;
+}
 
+bool linear_search(struct Array arr, int x){
+    int i;
+    for(i = 0; i < arr.length; i++){
+        if(x == arr.A[i]) {
+            swapp(&arr.A[0] ,&arr.A[i]);
+            return true;
+        }
+    }
+    return false;
+}
+
+int binary_search_recc(struct Array *arr, int left, int right, int key){
+    if (left > right){
+        return -1;
+    }
+    int mid = (left + right )/ 2;
+    if (arr->A[mid] == key){
+        return mid;
+    }else if( arr->A[mid] < key){
+        return binary_search_recc(arr, mid + 1, right, key);
+    } else{
+        return binary_search_recc(arr, left, mid - 1 , key);
+    }
+}
+
+int binary_search(struct Array *arr, int x){
+    int left;
+    int right;
+    int mid;
+    left = 0;
+    right = arr->length;
+    while(left <= right){
+        mid = (left + right) / 2;
+        printf(" the current mid index is: %d\n", mid);
+        if (arr->A[mid] == x){
+            return mid;
+        }else if (arr->A[mid] < x){
+            left = mid + 1;
+        }else{
+            right = mid -1;
+        }
+    }
+
+    return -1;
+}
 int main(){
     struct Array arr;
     int deleted;
@@ -63,18 +115,24 @@ int main(){
     arr.A = (int * )malloc(arr.size*sizeof(int));
     arr.length = 0;
     int i ;
-    for(i = 0; i < arr.size - 1; i++){
+    // for(i = 0; i < arr.size - 1; i++){
+    for(i = 0; i < arr.size; i++){
         scanf("%d",&arr.A[i]);
         arr.length++;
     }
 
-    display(arr);
+    // display(arr);
     // Append(&arr,8);
-    Insert(&arr,5,10);
+    // Insert(&arr,5,10);
 
+    // display(arr);
+    // deleted = Delete(&arr,2);
+    // printf("Element deleted was %d\n",deleted);
     display(arr);
-    deleted = Delete(&arr,2);
-    printf("Element deleted was %d",deleted);
+    // printf("%d\n", linear_search(arr,4));
+    printf("%d\n", binary_search(&arr,4));
+    printf("%d\n", binary_search_recc(&arr,0,arr.size,10));
+    
     display(arr);
     free(arr.A);
     return 0;
